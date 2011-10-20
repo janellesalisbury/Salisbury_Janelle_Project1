@@ -1,0 +1,87 @@
+<!-- Janelle Salisbury-->
+<!-- Visual Frameworks--> 
+<!-- 1108-->
+
+<!DOCTYPE html>
+<html lang = "en">
+
+    <head>
+      <meta charset= "utf-8">
+      <!-- Title of Project -->
+      <title> Fashionista </title>
+      <meta name = "Janelle Salisbury" content = "Fashion">
+      
+      <link rel ="stylesheet" href ="styles.css">
+    </head>
+    
+    <body>
+    <div id= "container">
+       <div id ="header">
+       <form action = "#">
+          <fieldset> <!-- data inside fieldset --> 
+             <legend>Add Items</legend>
+             <div class = "margin" id ="main">
+             
+                <h1>Add Item</h1>
+                <h2>Select Category</h2>
+           
+                <select>
+                   <option value = "shoes">Shoes</option>
+                   <option value = "jewlery">Jewelry</option>
+                   <option value = "tops">Tops</option>
+                   <option value = "bottoms">Bottoms</option>
+                   <option value = "handbags">Handbags</option>
+                
+                </select>
+           
+                <h2>Item Information:</h2>
+                
+                <!-- labels/inputs-->
+                <dl>
+                <dt><label for = "name">Name</label> 
+                <dt><input type = "text" id = "name" name = "name"/>
+                
+                <dt><label for = "brand">Brand</label>
+                <dt><input type = "text" id = "brand" name = "brand"/>
+                
+                <dt><label for = "color">Color</label> 
+                <dt><input type = "text" id = "color" name = "color"/>
+                
+                <dt><label for = "quantity">Quantity</label> 
+                <dt><input type = "range" min = "1" max = "10" id = "quantity" name = "quantity" type = "range"/>
+                
+                <dt><label for = "dry clean only">Dry Clean Only:</label> 
+                <dt><input type = "checkbox" id= "dry clean only" name = "dry clean only" type = "checkbox"/>
+                
+                <dt><label for = "notes">Notes:</label> 
+                <dt><textarea name = "notes" id= "notes">put notes here</textarea>
+
+                <!-- submit button--> 
+                <dt><input type = "submit" value = "submit" onSubmit = "storeItems()"; /> 
+                </dl> 
+        </div>                       
+        </fieldset>
+        <script src ="main.js"</script>
+        <script> getItems() </script>      
+     </form>
+    </body>
+</html>
+       
+       
+       
+       
+       
+      
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+ 
