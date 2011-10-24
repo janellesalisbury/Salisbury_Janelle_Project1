@@ -27,10 +27,26 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 	
 	}
+	
+	function storeData(){
+		var id		= math.floor(math.random()*100000001);
+		// Gather up form field values and store in an object
+		// Object properties contain array with the form label and input values.
+		var item	= {};
+			item.group = ["Group", $("group").value];
+			item.name = ["Name", $("name").value];
+			item.brand = ["Brand", $("brand").value];
+			item.color = ["Color", $("color"),value];
+			item.drycleanonly = ["Dry Clean Only", $("dry clean only".value];
+			item.notes = ["Notes", $("notes"..value];
+	
+	
+	
+	}
 
 //Variable defaults
 	var clothingCategories = [--"Choose a Category"--, "Shoes", "Tops", "Bottoms", "Jewelry", "Handbags"];
-	
+	makeCats();
 
 //set link & submit click events
 
