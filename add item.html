@@ -30,14 +30,7 @@
                 <h1>Add Item</h1>
                 <h2>Select Category</h2>
            
-                <select>
-                   <option value = "shoes">Shoes</option>
-                   <option value = "jewlery">Jewelry</option>
-                   <option value = "tops">Tops</option>
-                   <option value = "bottoms">Bottoms</option>
-                   <option value = "handbags">Handbags</option>
-                
-                </select>
+                <div id = "select"></div>
            
                 <h2>Item Information:</h2>
                 
@@ -52,14 +45,14 @@
                 <dt><label for = "color">Color</label> 
                 <dt><input type = "text" id = "color" name = "color"/>
                 
-                <dt><label for = "dry clean only">Dry Clean Only:</label> 
-                <dt><input type = "checkbox" id= "dry clean only" name = "dry clean only" type = "checkbox"/>
+                <dt><label for = "dryCleanOnly">Dry Clean Only:</label> 
+                <dt><input type = "checkbox" id= "dryCleanOnly" name = "dryCleanOnly" type = "checkbox"/>
                 
                 <dt><label for = "notes">Notes:</label> 
                 <dt><textarea name = "notes" id= "notes">put notes here</textarea>
 
                 <!-- submit button--> 
-                <dt><input type = "submit" value = "submit" onSubmit = "storeItems()"; /> 
+                <dt><input type = "submit" value = "submit" id = "submit" /> 
                 </dl> 
         </div>                       
         </fieldset>
