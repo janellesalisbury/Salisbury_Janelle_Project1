@@ -24,6 +24,14 @@ window.addEventListener("DOMContentLoaded", function(){
 			makeSelect.appendChild(makeOption);
 		}
 		selectLi.appendChild(makeSelect);
+	}
+	
+	function getCheckboxValue(){
+		if ($("dry clean only").checked){
+			dryCleanValue = $("dry clean only").value;
+			
+		}else{
+			dryCleanValue = "No"
 	
 	
 	}
@@ -32,20 +40,23 @@ window.addEventListener("DOMContentLoaded", function(){
 		var id		= math.floor(math.random()*100000001);
 		// Gather up form field values and store in an object
 		// Object properties contain array with the form label and input values.
+		getCheckboxValue();
 		var item	= {};
 			item.group = ["Group", $("group").value];
 			item.name = ["Name", $("name").value];
 			item.brand = ["Brand", $("brand").value];
 			item.color = ["Color", $("color"),value];
-			item.drycleanonly = ["Dry Clean Only", $("dry clean only".value];
-			item.notes = ["Notes", $("notes"..value];
-	
-	
-	
+			item.drycleanonly = ["Dry Clean Only", dryCleanValue];
+			item.notes = ["Notes", $("notes".value];
+		// Save data to local storage: Use stringify to convert our object to a string
+		localStorage.setItem(id, JSON.stringify(item));
+		alert ("Item Saved");
 	}
 
 //Variable defaults
 	var clothingCategories = [--"Choose a Category"--, "Shoes", "Tops", "Bottoms", "Jewelry", "Handbags"];
+		dryCleanValue = "No"
+		;
 	makeCats();
 
 //set link & submit click events
