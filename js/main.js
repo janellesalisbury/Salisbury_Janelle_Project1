@@ -76,6 +76,9 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 	function getData(){
 		toggleControls("on");
+		if(localStorage.length === 0){
+		alert("There is no data in Local Storage.");
+		}
 	//write data from local storage to browser
 		var makeDiv = document.createElement("div");
 		makeDiv.setAttribute("id", "items");
@@ -85,6 +88,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		$("items").style.display = "block";
 		for (var i=0, len=localStorage.length; i<len;i++){
 			var makeLi = document.createElement ("li");
+			var linksLi = document.createElement("li");
 			makeList.appendChild(makeLi);
 			var key = localStorage.key(i);
 			var value = localStorage.getItem(key);
@@ -97,11 +101,24 @@ window.addEventListener("DOMContentLoaded", function(){
 				makeSubList.appendChild(makeSubli);
 				var optSubText = obj[n][0]+" "+obj[n][1];
 				makeSubli.innerHTML = optSubText;
+				makeSubList.appendChild(linksli);
+				makeSubList.appendChild(linksli);
 			}	
-		
+		//makeItemLinks(); create our edit and delete buttons/links for each item in local storage.
 		}
 	}
 	
+	function clearLocal(){
+		if (localStorage.length === 0){
+			alert ("There is no data to clear.")
+		
+		}else{
+			localStorage.clear();
+			alert("All items deleted!");
+			window.location.reload();
+			return false;
+		}
+	}
 
 //Variable defaults
 	var clothingCategories = ["--Choose a Category--", "Shoes", "Tops", "Bottoms", "Jewelry", "Handbags"],
@@ -114,7 +131,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	var displayLink = $("displayLink");
 	displayLink.addEventListener("click", getData);
 	var clearLink = $("clear");
-	//clearLink.addEventListener("click", clearLocal);
+	clearLink.addEventListener("click", clearLocal);
 	var save = $("submit");
 	console.log(save);
 	save.addEventListener("click", storeData);
