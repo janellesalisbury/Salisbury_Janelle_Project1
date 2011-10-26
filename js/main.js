@@ -75,6 +75,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	}
 	
 	function getData(){
+		toggleControls("on");
 	//write data from local storage to browser
 		var makeDiv = document.createElement("div");
 		makeDiv.setAttribute("id", "items");
@@ -101,11 +102,6 @@ window.addEventListener("DOMContentLoaded", function(){
 		}
 	}
 	
-	
-	
-	
-	
-	}
 
 //Variable defaults
 	var clothingCategories = ["--Choose a Category--", "Shoes", "Tops", "Bottoms", "Jewelry", "Handbags"],
