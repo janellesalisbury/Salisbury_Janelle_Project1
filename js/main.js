@@ -57,8 +57,16 @@ window.addEventListener("DOMContentLoaded", function(){
 			
 	}
 	
-	function storeData(){
-		var id		= Math.floor(Math.random()*100000001);
+	function storeData(key){
+	//If there is no key, this means this is a brand new item and we need a new key.
+		if(!key){
+			var id		= Math.floor(Math.random()*100000001);
+		}else{
+			// Set the id to the existing item we're editing so that it will save over the data.
+			// The key is the same key that's been passed along from the editSubmit event handler
+			// to the validate function, and then passed here, to the storeData function.
+			id = key;
+		}
 		// Gather up form field values and store in an object
 		// Object properties contain array with the form label and input values.
 		getCheckboxValue();
@@ -77,7 +85,8 @@ window.addEventListener("DOMContentLoaded", function(){
 	function getData(){
 		toggleControls("on");
 		if(localStorage.length === 0){
-		alert("There is no data in Local Storage.");
+			autoFillData();
+			alert("There is no data in Local Storage so default data was stored.");
 		}
 	//write data from local storage to browser
 		var makeDiv = document.createElement("div");
@@ -96,6 +105,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			var obj = JSON.parse(value);
 			var makeSubList = document.createElement("ul");
 			makeLi.appendChild(makeSubList);
+			getImage();
 			for (var n in obj){
 				var makeSubli=document.createElement("li");
 				makeSubList.appendChild(makeSubli);
@@ -108,10 +118,71 @@ window.addEventListener("DOMContentLoaded", function(){
 		}
 	}
 	
+	// Get image for the right category
+	
+	function getImage(){
+		var imageLi = document.createElement("li");
+		make subList.appendChild(imageLi);
+		var newImg = document.createElement("img");
+		var setSrc = newImg.setAttribute("src", "images/"+ catName +".png");
+		imageLi.appendChild(newImg);
+	
+	
+	}
+	
+	
+	
+	//JSON object which will auto-populate local storage
+	function autoFillData(){
+		var json = {
+			"contact1":{
+				"group":["Group:", "Shoes"],
+				"name":["Name:", "Janelle"],
+				"brand":["Brand:", "BCBG"],
+				"color":["Color:", "Black"],
+				"notes":["Notes:", "Stored"]
+			},
+			"contact2":{
+				"group":["Group:", "Tops"],
+				"name":["Name:", "T-shirt"],
+				"brand":["Brand:", "Aero"],
+				"color":["Color:", "Black"],
+				"notes":["Notes:", "Drawer"]
+		    },		
+		    "contact3":{
+				"group":["Group:", "Pants"],
+				"name":["Name:", "Jeans"],
+				"brand":["Brand:", "Maurices"],
+				"color":["Color:", "Light Denim"],
+				"notes":["Notes:", "Drawer"]
+		    },	
+		    "contact4":{
+				"group":["Group:", "Jewelry"],
+				"name":["Name:", "Necklace"],
+				"brand":["Brand:", "Al Scott Creations"],
+				"color":["Color:", "Green multi/glass center"],
+				"notes":["Notes:", "Stored in basket"]
+		    },	
+		    "contact5":{
+				"group":["Group:", "Handbags"],
+				"name":["Name:", "Banana Bag"],
+				"brand":["Brand:", "Dooney & Bourke"],
+				"color":["Color:", "Multi"],
+				"notes":["Notes:", "In tote 1"]
+		    }		
+	   };
+		// Store JSON OBJECT inot Local Storage
+		
+		for(var n in json){
+		var id = 	Math.floor(Math.random()*100000001);
+		localStorage.setItem(id, JSON.stringify(json[n]));
+		}
+	}
 	//Make Item Links
 	//Create the edit and delete links for each stored item when displayed
 	
 	function makeItemLinks(key, linksLi){
+	
 	//add edit single item link
 	var editLink = document.createElement("a");
     editLink.href = "#";
@@ -128,15 +199,15 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 	//add delete single item link
 	var deleteLink = document.createElement("a");
-	deleteLink.href = "#";
+    deleteLink.href = "#";
 	deleteLink.key = key;
 	var deleteText = "Delete Item";
-	//deleteLink.addEventListener("click", deleteItem);
+	deleteLink.addEventListener("click", deleteItem);
 	deleteLink.innerHTML = deleteText;
 	linksLi.appendChild(deleteLink);
 	
 	}
-	
+	//Edit single items
 	function editItem(){
 		// Grab the data from our item from local storage.
 		var value = localStorage.getItem(this.key);
@@ -149,7 +220,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		$("name").value = item.name[1];
 		$("brand").value = item.brand[1];
 		$("color").value = item.color[1];
-		if(item.dryClean[1]=="Yes"){
+		if(item.dryClean[1]==="Yes"){
 			$("dryCleanOnly").setAttribute("checked", "checked");
 		}
 		$("notes").value = item.notes[1];
@@ -165,10 +236,23 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 	}
 	
+	function deleteItem(){
+		var ask = confirm("Are you sure you want to delete this item?");
+		if(ask){
+			localStorage.removeItem(this.key);
+			window.location.reload();
+		}else{
+			alert("Item was not deleted.")
+		
+		}
+	
+	
+	 }
+	
 	
 	function clearLocal(){
-		if (localStorage.length === 0){
-			alert ("There is no data to clear.")
+		if(localStorage.length === 0){
+		   alert ("There is no data to clear.")
 		
 		}else{
 			localStorage.clear();
@@ -178,17 +262,24 @@ window.addEventListener("DOMContentLoaded", function(){
 		}
 	}
 	
-	function validate(){
+	function validate(e){
 	// Define elements we want to check
 		var getGroup = $("groups");
 		var getName = $("name");
 		var getBrand = $("brand");
 		var getColor = $("color");
 		
+		// reset Error Messages
+		errMsg.innerHTML = "";
+		getGroup.style.border = "1px solid black";
+		getName.style.border = "1px solid black";
+		getBrand.style.border = "1px solid black";
+		getColor.style.border = "1px solid black";
+		
 		//Get error messages
 		var messageAry = [];
 		//Group validation
-		if(getGroup === "--- Choose A Group ---"){
+		if(getGroup.value ==="--- Choose A Group ---"){
 			var groupError = "Please choose a group";
 			getGroup.style.border = "1px solid red";
 			messageAry.push(groupError);
@@ -211,13 +302,26 @@ window.addEventListener("DOMContentLoaded", function(){
 			getColor.style.border = "1px solid red";
 			messageAry.push(colorError);
 		}
-		storeData();
-		
-		
+		//If there are errors, display on the screen.
+		if(messageAry.length >= 1){
+			for(var i=0, j=messageAry.length; i < j; i++){
+				var txt = document.createElement("li");
+				txt.innerHTML = messageAry[i];
+				errMsg.appendChild(txt);
+			}
+			e.preventDefault();
+		    return false;
+		}else{
+			// If all is okay, save our data! Send the key value(which came from the editData function.)
+			// Remember this key value was passed through the event listener as a property.
+			storeData(this.key);
+
+		}
 	}
 //Variable defaults
 	var clothingCategories = ["--Choose a Category--", "Shoes", "Tops", "Bottoms", "Jewelry", "Handbags"],
-		dryCleanValue = "No"
+		dryCleanValue = "No",
+		errMsg=$("errors");
 		;
 	makeCats();
 
